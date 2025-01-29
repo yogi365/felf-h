@@ -34,28 +34,28 @@
 // getUserData();
 
 
-function fetchData(url)
-{
-    return new Promise((resolve, reject) =>
-    {
-        setTimeout(() =>
-        {
-            if (url > 10)
-            {
-                resolve("A is greater than 10")
-            }
-            else
-            {
-                reject("a is smaller than 10");
-            }
-        })
-    })
-}
+// function fetchData(url)
+// {
+//     return new Promise((resolve, reject) =>
+//     {
+//         setTimeout(() =>
+//         {
+//             if (url > 10)
+//             {
+//                 resolve("A is greater than 10")
+//             }
+//             else
+//             {
+//                 reject("a is smaller than 10");
+//             }
+//         })
+//     })
+// }
 
-fetchData(5)
-    .then((value) => console.log(value))
-    .catch((err) => console.log(err))
-    .finally(() => console.log("finally block"));
+// fetchData(5)
+//     .then((value) => console.log(value))
+//     .catch((err) => console.log(err))
+//     .finally(() => console.log("finally block"));
 
 // function fetchDataSync(url) {
 //     const xhr = new XMLHttpRequest();
@@ -77,23 +77,34 @@ fetchData(5)
 // }
 
 
-// function getUser(userId, callback)
-// {
-//     if (err) return err;
-//     callback({ userId: userId })
-// }
+function getUser(userId, callback)
+{
+    if (err) return err;
+    callback(null, { userId: userId })
+}
 
-// function getPost(userid, callback)
-// {
-//     if (err) return err;
-//     callback(postId);
-// }
+function getPost(userid, callback)
+{
+    if (err) return err;
+    callback(null, postId);
+}
 
-// function getComments(postId, callback)
-// {
-//     if (err) return err;
-//     callback(["Comment1", "Comment 2"]);
-// }
+function getComments(postId, callback)
+{
+    if (err) return err;
+    callback(null, ["Comment1", "Comment 2"]);
+}
+
+getUser(1, (err, userId) =>
+{
+    getPost(userId, (err, postId) =>
+    {
+        getComments("PostId", (err, comments) =>
+        {
+            console.log(comments);
+        })
+    })
+})
 
 // function getUser(userId)
 // {
@@ -120,17 +131,6 @@ fetchData(5)
 // }
 
 
-
-// getUser(1, (userId) =>
-// {
-//     getPost(userId, (postId) =>
-//     {
-//         getComments("PostId", (comments) =>
-//         {
-//             console.log(comments);
-//         })
-//     })
-// })
 
 // getUser(1).then((userId) => getPost(userId))
 //     .then((postId) => getComments(postId))

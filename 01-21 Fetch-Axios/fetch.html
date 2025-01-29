@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <input type="text" id="txtName" placeholder="Enter your name" /> <br>
+    <input type="email" id="txtEmail" placeholder="Enter email" /> <br>
+    <input type="password" id="txtPass" placeholder=" Enter your password" /> <br>
+    <button onclick="signUp()">Sign Up</button>
+    <button onclick="login()">Login</button>
+
+    <script>
+        function signUp()
+        {
+            const userDetails = fetchInputValues();
+            fetch("http://localhost:3000/signup", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(userDetails)
+            }).then(data =>
+            {
+                if (data.status == 200)
+                {
+                    alert("Data saved succesfully");
+                }
+            });
+        }
+
+        function login()
+        {
+            const userDetails = fetchInputValues();
+            fetch("http://localhost:3000/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(userDetails)
+            }).then(data =>
+            {
+                if (data.status == 200)
+                {
+                    alert("You have be authenticated");
+                }
+                else
+                {
+                    console.log(data.message);
+                }
+            });
+
+
+        }
+
+        function fetchInputValues()
+        {
+            const name = document.querySelector('#txtName').value;
+            const email = document.querySelector('#txtEmail').value;
+            const pass = document.querySelector('#txtPass').value;
+            return { name, email, pass };
+        }
+    </script>
+</body>
+
+</html>
